@@ -25,7 +25,7 @@ set number
 " Setting these according to h: tabstop
 set tabstop=4
 set shiftwidth=4
-set autoindent
+set cindent
 
 " Configuration that works with lightline.vim
 set laststatus=2
