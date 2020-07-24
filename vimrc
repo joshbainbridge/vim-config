@@ -39,9 +39,13 @@ set splitright
 set cursorline
 highlight clear CursorLine
 
-" Remove the banner when running netrw
+" Keep the banner when running netrw
 let g:netrw_banner=1
 let g:netrw_liststyle=0
+
+" Set grep command to use ripgrep
+set grepprg=rg\ --vimgrep
+set grepformat=%f:%l:%c:%m
 
 " Specific commands for source code
 autocmd FileType cpp,python,cmake setlocal colorcolumn=80
