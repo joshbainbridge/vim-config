@@ -47,6 +47,10 @@ let g:netrw_liststyle=0
 set grepprg=rg\ --vimgrep
 set grepformat=%f:%l:%c:%m
 
+" Set the make program and error format
+set makeprg=ninja\ -C\ build
+set errorformat=../%f:%l:%c:\ error:\ %m,../%f:%l:%c:\ fatal\ error:\ %m
+
 " Specific commands for source code
 autocmd FileType cpp,python,cmake setlocal colorcolumn=80
 
@@ -59,3 +63,7 @@ nnoremap k gk
 
 " Resize window to standard width
 nnoremap <silent> <leader>' :vertical resize 85<CR>
+
+" Add clang format key maps
+nnoremap <silent> <leader>f :%! clang-format --style=file<CR>
+vnoremap <silent> <leader>f :'<,'>! clang-format --style=file<CR>
