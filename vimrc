@@ -51,6 +51,10 @@ set grepformat=%f:%l:%c:%m
 set makeprg=ninja\ -C\ build
 set errorformat=../%f:%l:%c:\ error:\ %m,../%f:%l:%c:\ fatal\ error:\ %m
 
+" Make special characters visible
+set listchars=tab:+-,trail:-
+set list
+
 " Specific commands for source code
 autocmd FileType cpp,python,cmake setlocal colorcolumn=80
 
