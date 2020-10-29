@@ -18,9 +18,16 @@ set ruler
 set showcmd
 set nowrap
 
+" Give a text width value
+set textwidth=80
+
 " Configure line numbers
 set numberwidth=5
 set number
+
+" Add row number highlighting
+set cursorline
+highlight clear CursorLine
 
 " Setting these according to h: tabstop
 set tabstop=4
@@ -35,9 +42,9 @@ set noshowmode
 set splitbelow
 set splitright
 
-" Add row number highlighting
-set cursorline
-highlight clear CursorLine
+" Make special characters visible
+set listchars=tab:+-,trail:-
+set list
 
 " Keep the banner when running netrw
 let g:netrw_banner=1
@@ -51,10 +58,6 @@ set grepformat=%f:%l:%c:%m
 set makeprg=ninja\ -C\ build
 set errorformat=../%f:%l:%c:\ error:\ %m,../%f:%l:%c:\ fatal\ error:\ %m
 
-" Make special characters visible
-set listchars=tab:+-,trail:-
-set list
-
 " Specific commands for source code
 autocmd FileType cpp,python,cmake setlocal colorcolumn=80
 
@@ -65,7 +68,7 @@ autocmd FileType text,markdown setlocal spell nonumber wrap
 nnoremap j gj
 nnoremap k gk
 
-" Resize window to standard width
+" Resize window to standard width (+5 for line numbers)
 nnoremap <silent> <leader>' :vertical resize 85<CR>
 
 " Add clang format key maps
