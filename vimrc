@@ -72,5 +72,5 @@ nnoremap k gk
 nnoremap <silent> <leader>' :vertical resize 85<CR>
 
 " Add clang format key maps
-nnoremap <silent> <leader>f :%! clang-format --style=file<CR>
-vnoremap <silent> <leader>f :'<,'>! clang-format --style=file<CR>
+nnoremap <silent> <leader>f :%! clang-format-11 --style=file<CR>
+vnoremap <silent> <leader>f :'<,'>! clang-format-11 --style=file<CR>
