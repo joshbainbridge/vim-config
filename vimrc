@@ -47,8 +47,8 @@ set listchars=tab:+-,trail:-
 set list
 
 " Keep the banner when running netrw
-let g:netrw_banner=1
-let g:netrw_liststyle=0
+let g:netrw_banner = 1
+let g:netrw_liststyle = 0
 
 " Set grep command to use ripgrep
 set grepprg=rg\ --vimgrep
@@ -106,3 +106,5 @@ augroup lsp_install
     " call s:on_lsp_buffer_enabled only for languages that has the server registered.
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
+
+let g:lsp_diagnostics_echo_cursor = 1
