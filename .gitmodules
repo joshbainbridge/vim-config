@@ -7,3 +7,6 @@
 [submodule "colors/vim-dim"]
 	path = colors/vim-dim
 	url = https://github.com/jeffkreeftmeijer/vim-dim.git
+[submodule "pack/plugins/start/vim-lsp"]
+	path = pack/plugins/start/vim-lsp
+	url = https://github.com/prabirshrestha/vim-lsp.git
