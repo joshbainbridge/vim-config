@@ -75,10 +75,6 @@ nnoremap <silent> <leader>' :vertical resize 87<CR>
 nnoremap <silent> <leader>f :%! clang-format-11 --style=file<CR>
 vnoremap <silent> <leader>f :'<,'>! clang-format-11 --style=file<CR>
 
-" Make omni completion easier
-inoremap <expr> <CR> pumvisible() ? '<C-Y>' : '<CR>'
-inoremap <expr> <C-O> pumvisible() ? '<C-N>' : '<C-X><C-O>'
-
 " Configure vim-lsp with the clangd server
 if executable('clangd')
     au User lsp_setup call lsp#register_server({
@@ -92,6 +88,9 @@ function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
     setlocal signcolumn=yes
 
+    inoremap <buffer> <expr> <CR> pumvisible() ? '<C-Y>' : '<CR>'
+    inoremap <buffer> <expr> <C-N> pumvisible() ? '<C-N>' : '<C-X><C-O>'
+
     nmap <buffer> gd <plug>(lsp-definition)
     nmap <buffer> gs <plug>(lsp-document-symbol-search)
     nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
@@ -103,12 +102,12 @@ function! s:on_lsp_buffer_enabled() abort
     nmap <buffer> ]g <plug>(lsp-next-diagnostic)
     nmap <buffer> K <plug>(lsp-hover)
 
-    " refer to doc to add more commands
+    " Refer to doc to add more commands
 endfunction
 
 augroup lsp_install
     au!
-    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    " Call s:on_lsp_buffer_enabled only for languages that has the server registered
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 
