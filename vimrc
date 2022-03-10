@@ -68,12 +68,16 @@ autocmd FileType text,markdown setlocal spell nonumber wrap
 nnoremap j gj
 nnoremap k gk
 
-" Resize window to standard width (+5 for line numbers)
-nnoremap <silent> <leader>' :vertical resize 85<CR>
+" Resize window to standard width (+5 for numbers, +2 for signs)
+nnoremap <silent> <leader>' :vertical resize 87<CR>
 
 " Add clang format key maps
 nnoremap <silent> <leader>f :%! clang-format-11 --style=file<CR>
 vnoremap <silent> <leader>f :'<,'>! clang-format-11 --style=file<CR>
+
+" Make omni completion easier
+inoremap <expr> <CR> pumvisible() ? '<C-Y>' : '<CR>'
+inoremap <expr> <C-O> pumvisible() ? '<C-N>' : '<C-X><C-O>'
 
 " Configure vim-lsp with the clangd server
 if executable('clangd')
@@ -87,6 +91,7 @@ endif
 function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
     setlocal signcolumn=yes
+
     nmap <buffer> gd <plug>(lsp-definition)
     nmap <buffer> gs <plug>(lsp-document-symbol-search)
     nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
