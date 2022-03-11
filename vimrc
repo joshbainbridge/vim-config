@@ -75,6 +75,9 @@ nnoremap <silent> <leader>' :vertical resize 87<CR>
 nnoremap <silent> <leader>f :%! clang-format-11 --style=file<CR>
 vnoremap <silent> <leader>f :'<,'>! clang-format-11 --style=file<CR>
 
+" Accept completion from popup with <CR>
+inoremap <buffer> <expr> <CR> pumvisible() ? '<C-Y>' : '<CR>'
+
 " Configure vim-lsp with the clangd server
 if executable('clangd')
     au User lsp_setup call lsp#register_server({
@@ -85,12 +88,14 @@ if executable('clangd')
 endif
 
 function! s:on_lsp_buffer_enabled() abort
+    " Options for LSP enabled files
     setlocal omnifunc=lsp#complete
     setlocal signcolumn=yes
 
-    inoremap <buffer> <expr> <CR> pumvisible() ? '<C-Y>' : '<CR>'
-    inoremap <buffer> <expr> <C-N> pumvisible() ? '<C-N>' : '<C-X><C-O>'
+    " Make omni completion easier to access
+    imap <buffer> <expr> <C-N> pumvisible() ? '<C-N>' : '<C-X><C-O>'
 
+    " Basic mappings for LSP functionality
     nmap <buffer> gd <plug>(lsp-definition)
     nmap <buffer> gs <plug>(lsp-document-symbol-search)
     nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
@@ -100,7 +105,6 @@ function! s:on_lsp_buffer_enabled() abort
     nmap <buffer> <leader>rn <plug>(lsp-rename)
     nmap <buffer> [g <plug>(lsp-previous-diagnostic)
     nmap <buffer> ]g <plug>(lsp-next-diagnostic)
-    nmap <buffer> K <plug>(lsp-hover)
 
     " Refer to doc to add more commands
 endfunction
@@ -111,4 +115,5 @@ augroup lsp_install
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 
+" Enable LSP diagnostics in the status bar
 let g:lsp_diagnostics_echo_cursor = 1
