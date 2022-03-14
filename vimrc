@@ -75,9 +75,6 @@ nnoremap <silent> <leader>' :vertical resize 87<CR>
 nnoremap <silent> <leader>f :%! clang-format-11 --style=file<CR>
 vnoremap <silent> <leader>f :'<,'>! clang-format-11 --style=file<CR>
 
-" Accept completion from popup with <CR>
-inoremap <buffer> <expr> <CR> pumvisible() ? '<C-Y>' : '<CR>'
-
 " Configure vim-lsp with the clangd server
 if executable('clangd')
     au User lsp_setup call lsp#register_server({
@@ -95,6 +92,9 @@ function! s:on_lsp_buffer_enabled() abort
     " Make omni completion easier to access
     imap <buffer> <expr> <C-N> pumvisible() ? '<C-N>' : '<C-X><C-O>'
 
+    " Accept completion from popup with <CR>
+    imap <buffer> <expr> <CR> pumvisible() ? '<C-Y>' : '<CR>'
+
     " Basic mappings for LSP functionality
     nmap <buffer> gd <plug>(lsp-definition)
     nmap <buffer> gs <plug>(lsp-document-symbol-search)
@@ -102,9 +102,9 @@ function! s:on_lsp_buffer_enabled() abort
     nmap <buffer> gr <plug>(lsp-references)
     nmap <buffer> gi <plug>(lsp-implementation)
     nmap <buffer> gt <plug>(lsp-type-definition)
-    nmap <buffer> <leader>rn <plug>(lsp-rename)
     nmap <buffer> [g <plug>(lsp-previous-diagnostic)
     nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
 
     " Refer to doc to add more commands
 endfunction
