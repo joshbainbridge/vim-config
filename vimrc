@@ -56,9 +56,15 @@ let g:netrw_liststyle = 0
 " Configure FZF window layout
 let g:fzf_layout = { 'window': 'enew' }
 
-" Set grep command to use ripgrep
-set grepprg=rg\ --vimgrep
-set grepformat=%f:%l:%c:%m
+" When ripgrep is installed
+if executable("rg")
+    " Set ZFZ search to use ripgrep
+    let $FZF_DEFAULT_COMMAND = 'rg --files'
+
+    " Set grep command to use ripgrep
+    set grepprg=rg\ --vimgrep
+    set grepformat=%f:%l:%c:%m
+endif
 
 " Set the make program and error format
 set makeprg=ninja\ -C\ build
