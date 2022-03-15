@@ -27,7 +27,10 @@ set number
 
 " Add row number highlighting
 set cursorline
-highlight clear CursorLine
+
+" Set highlighting for line selection
+highlight CursorLine   cterm=bold
+highlight CursorLineNr cterm=none
 
 " Setting these according to h: tabstop
 set tabstop=4
@@ -47,8 +50,11 @@ set listchars=tab:+-,trail:-
 set list
 
 " Keep the banner when running netrw
-let g:netrw_banner = 1
+let g:netrw_banner = 0
 let g:netrw_liststyle = 0
+
+" Configure FZF window layout
+let g:fzf_layout = { 'window': 'enew' }
 
 " Set grep command to use ripgrep
 set grepprg=rg\ --vimgrep
@@ -59,7 +65,7 @@ set makeprg=ninja\ -C\ build
 set errorformat=../%f:%l:%c:\ error:\ %m,../%f:%l:%c:\ fatal\ error:\ %m
 
 " Specific commands for source code
-autocmd FileType cpp,python,cmake setlocal colorcolumn=80
+" autocmd FileType cpp,python,cmake setlocal colorcolumn=80
 
 " Specific commands for text files
 autocmd FileType text,markdown setlocal spell nonumber wrap
@@ -74,6 +80,12 @@ nnoremap <silent> <leader>' :vertical resize 87<CR>
 " Add clang format key maps
 nnoremap <silent> <leader>f :%! clang-format-11 --style=file<CR>
 vnoremap <silent> <leader>f :'<,'>! clang-format-11 --style=file<CR>
+
+" Mapping for fuzzy search with FZF
+nnoremap <C-P> :FZF<CR>
+
+" Accept completion from popup with <CR>
+inoremap <expr> <CR> pumvisible() ? '<C-Y>' : '<CR>'
 
 " Configure vim-lsp with the clangd server
 if executable('clangd')
@@ -92,9 +104,6 @@ function! s:on_lsp_buffer_enabled() abort
     " Make omni completion easier to access
     imap <buffer> <expr> <C-N> pumvisible() ? '<C-N>' : '<C-X><C-O>'
 
-    " Accept completion from popup with <CR>
-    imap <buffer> <expr> <CR> pumvisible() ? '<C-Y>' : '<CR>'
-
     " Basic mappings for LSP functionality
     nmap <buffer> gd <plug>(lsp-definition)
     nmap <buffer> gs <plug>(lsp-document-symbol-search)
@@ -105,13 +114,10 @@ function! s:on_lsp_buffer_enabled() abort
     nmap <buffer> [g <plug>(lsp-previous-diagnostic)
     nmap <buffer> ]g <plug>(lsp-next-diagnostic)
     nmap <buffer> <leader>rn <plug>(lsp-rename)
-
-    " Refer to doc to add more commands
 endfunction
 
 augroup lsp_install
-    au!
-    " Call s:on_lsp_buffer_enabled only for languages that has the server registered
+    autocmd!
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 
