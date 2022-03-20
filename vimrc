@@ -60,13 +60,13 @@ vnoremap <silent> <leader>f :'<,'>! clang-format-11 --style=file<CR>
 " Accept completion from popup with <CR>
 inoremap <expr> <CR> pumvisible() ? '<C-Y>' : '<CR>'
 
-" Keep the banner when running netrw
+" Don't keep the banner when running netrw
 let g:netrw_banner = 0
 let g:netrw_liststyle = 0
 
-" If ripgrep is found...
+" If fzf is found...
 if executable("fzf")
-    " Setup ctrlp to use ripgrep
+    " Change fzf layout to bottom of screen
     let g:fzf_layout = { 'window': '15new' }
 
     " Mapping for fuzzy search with fzf
@@ -80,9 +80,6 @@ if executable("rg")
 
     " Configure the format to match ripgrep
     set grepformat=%f:%l:%c:%m
-
-    " Setup ctrlp to use ripgrep
-    let g:ctrlp_user_command = 'rg --files'
 endif
 
 " If clangd is found...
