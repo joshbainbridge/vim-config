@@ -7,11 +7,10 @@ syntax on
 " Set background for tmux compatibility
 set background=dark
 
-" Use ANSI colours from dim
-colorscheme dim
-highlight CursorLine   cterm=NONE
-highlight CursorLineNr cterm=NONE
-highlight! link SignColumn LineNr
+" Use 256 colours from gruvbox
+packadd! gruvbox
+colorscheme gruvbox
+let g:gruvbox_contrast_dark = 'hard'
 
 " Standard configuration options
 set wildmenu
@@ -67,6 +66,9 @@ let g:netrw_liststyle = 0
 
 " If ripgrep is found...
 if executable("fzf")
+    " Setup ctrlp to use ripgrep
+    let g:fzf_layout = { 'window': '15new' }
+
     " Mapping for fuzzy search with fzf
     nnoremap <C-P> :FZF<CR>
 endif
@@ -122,6 +124,12 @@ augroup END
 
 " Enable LSP diagnostics in the status bar
 let g:lsp_diagnostics_echo_cursor = 1
+
+" Use ANSI colours from dim
+" colorscheme dim
+" highlight CursorLine   cterm=NONE
+" highlight CursorLineNr cterm=NONE
+" highlight! link SignColumn LineNr
 
 " Resize window to standard width (+5 for numbers, +2 for signs)
 " nnoremap <silent> <leader>' :vertical resize 87<CR>
