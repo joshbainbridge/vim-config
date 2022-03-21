@@ -43,7 +43,7 @@ set splitbelow
 set splitright
 
 " Make special characters visible
-set listchars=tab:+-,trail:+
+set listchars=tab:-->,trail:+
 set list
 
 " Specific commands for text files
